@@ -13,6 +13,8 @@ pipeline {
 
     environment {
         FIRMWARE_BIN = 'my-firmware'
+        // rustup install is not on non-login shell PATH by default
+        PATH = "${HOME}/.cargo/bin:${env.PATH}"
         RUSTC_WRAPPER = 'sccache'
         SCCACHE_DIR = "${WORKSPACE}/.sccache"
         CARGO_TERM_COLOR = 'always'

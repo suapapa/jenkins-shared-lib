@@ -33,11 +33,14 @@ pipeline {
         // Cargo package binary name (must match Cargo.toml [[bin]] / default package name)
         FIRMWARE_BIN = 'my-firmware'
 
-        // 2) sccache compile cache
+        // 2) rustup bin dir (Jenkins sh is non-login; ~/.bashrc is not sourced)
+        PATH = "${HOME}/.cargo/bin:${env.PATH}"
+
+        // 3) sccache compile cache
         RUSTC_WRAPPER = 'sccache'
         SCCACHE_DIR = "${WORKSPACE}/.sccache"
 
-        // 3) Keep cargo terminal colors in Jenkins console
+        // 4) Keep cargo terminal colors in Jenkins console
         CARGO_TERM_COLOR = 'always'
     }
 

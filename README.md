@@ -127,6 +127,7 @@ script {
 | `OTA_API_URL` | OTA 메타데이터 POST URL |
 | `DOWNLOAD_URL_BASE` | CDN 공개 다운로드 base URL |
 | `HOMIN_DEV_TOKEN` | OTA API / 펌웨어 빌드 토큰 (에이전트 env) |
+| `PATH` | `${HOME}/.cargo/bin` 포함 (Jenkins non-login `sh`용) |
 | `RUSTC_WRAPPER` | 보통 `sccache` |
 | `SCCACHE_DIR` | 예: `${WORKSPACE}/.sccache` |
 | `CARGO_TERM_COLOR` | `always` (콘솔 컬러) |

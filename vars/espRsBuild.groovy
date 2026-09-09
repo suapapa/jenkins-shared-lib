@@ -39,8 +39,15 @@ def call(Map args) {
 
     echo "Building ${binName} for ${chip} (${targetTriple}), tag=${releaseTag}"
 
+    // Ensure rustup cargo is visible even when callers skip espRsPreflight.
+    def cargoBin = "${env.HOME}/.cargo/bin"
+    if (!(env.PATH ?: '').tokenize(':').contains(cargoBin)) {
+        env.PATH = "${cargoBin}:${env.PATH}"
+    }
+
     sh """
         set -eu
+        export PATH="\$HOME/.cargo/bin:\$PATH"
 
         # 1) Load espup Xtensa/LLVM environment when present
         if [ -f "${exportEspScript}" ]; then

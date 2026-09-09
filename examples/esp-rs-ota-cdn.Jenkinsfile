@@ -38,6 +38,8 @@ pipeline {
         DOWNLOAD_URL_BASE = 'https://cdn.example.com/your-firmware_fw/'
         OTA_BIN_PREFIX = 'your-firmware'
 
+        // rustup install is not on non-login shell PATH by default
+        PATH = "${HOME}/.cargo/bin:${env.PATH}"
         RUSTC_WRAPPER = 'sccache'
         SCCACHE_DIR = "${WORKSPACE}/.sccache"
         CARGO_TERM_COLOR = 'always'
