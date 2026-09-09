@@ -4,7 +4,9 @@
 // Agent prerequisites:
 //   rust + esp-rs (espup), ~/export-esp.sh, cargo-espflash
 //   git SSH write access to the asset repository
-//   HOMIN_DEV_TOKEN in the agent environment
+//
+// Jenkins credentials:
+//   HOMIN_DEV_TOKEN — Secret text (used by espRsOtaRegister)
 //
 // Project scripts expected:
 //   ./make_ota_bins.sh [-v SW_VERSION]
@@ -60,7 +62,6 @@ pipeline {
                     cargo --version
                     rustc --version
                     command -v cargo-espflash
-                    test -n "${HOMIN_DEV_TOKEN:-}"
                     mkdir -p release
                 '''
             }

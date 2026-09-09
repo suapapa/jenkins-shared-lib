@@ -37,7 +37,7 @@
 - **sccache**
 - **gh** CLI (`gh auth login` 완료, 타깃 릴리스 저장소 쓰기 권한) — GitHub Release 플로우용
 - (OTA CDN) asset 저장소에 대한 **git SSH** 쓰기 권한
-- (OTA API) 에이전트 환경 변수 `HOMIN_DEV_TOKEN`
+- (OTA API) Jenkins Credential `HOMIN_DEV_TOKEN` (Secret text) — `espRsOtaRegister`가 `withCredentials`로 주입
 - (선택) `cargo-espflash` — 있으면 `.bin` 플래시 이미지 생성
 
 Docker/`cross`나 Jenkins Credential으로 `GH_TOKEN`을 주입하는 방식은 쓰지 않습니다.
@@ -52,7 +52,7 @@ Docker/`cross`나 Jenkins Credential으로 `GH_TOKEN`을 주입하는 방식은 
 | `espRsBuild` | 칩셋별 release 빌드 → ELF(+bin) → `dist/*.tar.gz` + `.sha256` |
 | `espRsPublish` | 에이전트 `gh` 세션으로 타깃 저장소 GitHub Release create/upload |
 | `espRsCdnPush` | CDN용 asset git 저장소를 workspace에 clone → `.bin` 복사 → commit/push |
-| `espRsOtaRegister` | HW revision별 OTA API에 바이너리 메타데이터 등록 (`HOMIN_DEV_TOKEN`) |
+| `espRsOtaRegister` | HW revision별 OTA API에 바이너리 메타데이터 등록 (Credential `HOMIN_DEV_TOKEN`) |
 | `espRsSccacheStats` | `sccache --show-stats` |
 | `espRsTargets` | 칩셋 ↔ Rust target triple 헬퍼 |
 
@@ -100,7 +100,7 @@ script {
 }
 ```
 
-에이전트에 `HOMIN_DEV_TOKEN`과 asset 저장소 SSH 쓰기 권한이 있어야 합니다.
+Jenkins에 Secret text credential `HOMIN_DEV_TOKEN`이 등록되어 있어야 하고, 에이전트에는 asset 저장소 SSH 쓰기 권한이 있어야 합니다.
 
 ## Examples
 
@@ -126,7 +126,7 @@ script {
 | `ASSET_SUBDIR` | asset 저장소 내 펌웨어 경로 |
 | `OTA_API_URL` | OTA 메타데이터 POST URL |
 | `DOWNLOAD_URL_BASE` | CDN 공개 다운로드 base URL |
-| `HOMIN_DEV_TOKEN` | OTA API / 펌웨어 빌드 토큰 (에이전트 env) |
+| `HOMIN_DEV_TOKEN` | OTA API 토큰 — Jenkins Secret text credential (step이 주입) |
 | `PATH` | `${HOME}/.cargo/bin` 포함 (Jenkins non-login `sh`용) |
 | `RUSTC_WRAPPER` | 보통 `sccache` |
 | `SCCACHE_DIR` | 예: `${WORKSPACE}/.sccache` |

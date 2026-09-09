@@ -1,4 +1,4 @@
-Register built OTA binaries with the update API for each HW revision. Uses <code>env.HOMIN_DEV_TOKEN</code> on the agent. Prefers <code>release/upload_update.sh</code> when present.
+Register built OTA binaries with the update API for each HW revision. Injects <code>HOMIN_DEV_TOKEN</code> from a Jenkins Secret text credential (default id <code>HOMIN_DEV_TOKEN</code>; override with <code>credentialsId</code>). Prefers <code>release/upload_update.sh</code> when present.
 
 Required: <code>version</code> (or <code>env.SW_VERSION</code>).
 
