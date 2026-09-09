@@ -40,7 +40,7 @@ def call(Map args) {
     echo "Building ${binName} for ${chip} (${targetTriple}), tag=${releaseTag}"
 
     sh """
-        set -euo pipefail
+        set -eu
 
         # 1) Load espup Xtensa/LLVM environment when present
         if [ -f "${exportEspScript}" ]; then

@@ -54,7 +54,7 @@ pipeline {
         stage('Pre-flight') {
             steps {
                 sh '''
-                    set -euo pipefail
+                    set -eu
                     cargo --version
                     rustc --version
                     command -v cargo-espflash
@@ -67,7 +67,7 @@ pipeline {
         stage('Build OTA bins') {
             steps {
                 sh '''
-                    set -euo pipefail
+                    set -eu
                     if [ -f "${HOME}/export-esp.sh" ]; then
                         # shellcheck disable=SC1090
                         source "${HOME}/export-esp.sh"

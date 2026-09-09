@@ -34,7 +34,7 @@ def call(Map args) {
     echo "OTA register: version=${version} revisions=[${revs}] api=${apiUrl}"
 
     sh """
-        set -euo pipefail
+        set -eu
 
         if [ -z "\${HOMIN_DEV_TOKEN:-}" ]; then
             echo "ERROR: HOMIN_DEV_TOKEN is not set on the agent"

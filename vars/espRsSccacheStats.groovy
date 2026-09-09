@@ -6,7 +6,7 @@
 def call(Map args = [:]) {
     def label = args.label ?: 'sccache Statistics'
     sh """
-        set -euo pipefail
+        set -eu
         echo "=== ${label} ==="
         sccache --show-stats || true
     """

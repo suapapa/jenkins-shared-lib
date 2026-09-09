@@ -37,7 +37,7 @@ def call(Map args) {
     }
 
     sh """
-        set -euo pipefail
+        set -eu
 
         if [ ! -d "${distDir}" ] || [ -z "\$(ls -A '${distDir}' 2>/dev/null || true)" ]; then
             echo "ERROR: no artifacts under ${distDir}"

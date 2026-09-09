@@ -35,7 +35,7 @@ def call(Map args) {
     echo "CDN push: ${sourceDir}/*_${version}_*.bin → ${assetRepo}:${assetSubdir}"
 
     sh """
-        set -euo pipefail
+        set -eu
 
         if [ ! -d "${sourceDir}" ]; then
             echo "ERROR: sourceDir not found: ${sourceDir}"

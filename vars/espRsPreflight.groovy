@@ -10,7 +10,7 @@ def call(Map args = [:]) {
     def requireGh = args.requireGh != false
 
     sh """
-        set -euo pipefail
+        set -eu
         echo "=== Toolchain Verification ==="
         cargo --version
         rustc --version
