@@ -68,7 +68,8 @@ pipeline {
 
         stage('Build OTA bins') {
             steps {
-                sh '''
+                // Shebang required: Jenkins defaults to /bin/sh (dash), not bash.
+                sh '''#!/bin/bash
                     set -eu
                     if [ -f "${HOME}/export-esp.sh" ]; then
                         # shellcheck disable=SC1090

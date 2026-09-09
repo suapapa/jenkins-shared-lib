@@ -34,7 +34,8 @@ def call(Map args) {
 
     echo "CDN push: ${sourceDir}/*_${version}_*.bin → ${assetRepo}:${assetSubdir}"
 
-    sh """
+    // Shebang required: Jenkins defaults to /bin/sh (dash), not bash.
+    sh """#!/bin/bash
         set -eu
 
         if [ ! -d "${sourceDir}" ]; then

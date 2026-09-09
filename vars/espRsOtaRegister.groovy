@@ -33,7 +33,8 @@ def call(Map args) {
 
     echo "OTA register: version=${version} revisions=[${revs}] api=${apiUrl}"
 
-    sh """
+    // Shebang required: Jenkins defaults to /bin/sh (dash), not bash.
+    sh """#!/bin/bash
         set -eu
 
         if [ -z "\${HOMIN_DEV_TOKEN:-}" ]; then

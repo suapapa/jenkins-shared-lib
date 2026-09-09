@@ -45,7 +45,9 @@ def call(Map args) {
         env.PATH = "${cargoBin}:${env.PATH}"
     }
 
-    sh """
+    // Shebang required: Jenkins defaults to /bin/sh (dash), not bash.
+    // `source` is a bashism (POSIX equivalent is `.`).
+    sh """#!/bin/bash
         set -eu
         export PATH="\$HOME/.cargo/bin:\$PATH"
 
