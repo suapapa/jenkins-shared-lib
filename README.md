@@ -35,8 +35,7 @@
 
 - Rust + **esp-rs** (espup), 보통 `~/export-esp.sh`
 - **sccache**
-- **gh** CLI (`gh auth login` 완료, 타깃 릴리스 저장소 쓰기 권한) — GitHub Release 플로우용
-- (OTA CDN) asset 저장소에 대한 **git SSH** 쓰기 권한
+- **gh** CLI (`gh auth login` 완료) — GitHub Release 및 OTA CDN asset 저장소 쓰기 권한
 - (OTA API) Jenkins Credential `HOMIN_DEV_TOKEN` (Secret text) — `espRsOtaRegister`가 `withCredentials`로 주입
 - (선택) `cargo-espflash` — 있으면 `.bin` 플래시 이미지 생성
 
@@ -51,7 +50,7 @@ Docker/`cross`나 Jenkins Credential으로 `GH_TOKEN`을 주입하는 방식은 
 | `espRsPreflight` | cargo / rustc / sccache / gh 확인, sccache stats 초기화, `dist/` 생성 |
 | `espRsBuild` | 칩셋별 release 빌드 → ELF(+bin) → `dist/*.tar.gz` + `.sha256` |
 | `espRsPublish` | 에이전트 `gh` 세션으로 타깃 저장소 GitHub Release create/upload |
-| `espRsCdnPush` | CDN용 asset git 저장소를 workspace에 clone → `.bin` 복사 → commit/push |
+| `espRsCdnPush` | CDN용 asset 저장소를 `gh repo clone` → `.bin` 복사 → commit/push |
 | `espRsOtaRegister` | HW revision별 OTA API에 바이너리 메타데이터 등록 (Credential `HOMIN_DEV_TOKEN`) |
 | `espRsSccacheStats` | `sccache --show-stats` |
 | `espRsTargets` | 칩셋 ↔ Rust target triple 헬퍼 |
@@ -100,7 +99,7 @@ script {
 }
 ```
 
-Jenkins에 Secret text credential `HOMIN_DEV_TOKEN`이 등록되어 있어야 하고, 에이전트에는 asset 저장소 SSH 쓰기 권한이 있어야 합니다.
+Jenkins에 Secret text credential `HOMIN_DEV_TOKEN`이 등록되어 있어야 하고, 에이전트 `gh`에 asset 저장소 쓰기 권한이 있어야 합니다.
 
 ## Examples
 

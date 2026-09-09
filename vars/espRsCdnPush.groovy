@@ -1,6 +1,6 @@
 /**
  * Clone a CDN-backed asset git repo into the workspace, copy versioned binaries,
- * commit, and push. Uses the agent's existing git/SSH auth (no Jenkins credentials).
+ * commit, and push. Uses the agent's pre-authenticated gh CLI (no Jenkins credentials).
  *
  *   espRsCdnPush(
  *     assetRepo: 'suapapa/homin-dev_asset',
@@ -23,7 +23,6 @@ def call(Map args) {
     def assetSubdir = args.assetSubdir ?: env.ASSET_SUBDIR ?: 'asset/rusty-hangulclock_fw'
     def sourceDir = args.sourceDir ?: 'release'
     def workDir = args.workDir ?: 'cdn-asset'
-    def gitUrl = args.gitUrl ?: "git@github.com:${assetRepo}.git"
 
     def commitMessage = args.commitMessage
     if (!commitMessage) {
@@ -51,13 +50,18 @@ def call(Map args) {
         fi
 
         rm -rf "${workDir}"
-        git clone --depth 1 "${gitUrl}" "${workDir}"
+        gh repo clone "${assetRepo}" "${workDir}" -- --depth 1
 
         dest="${workDir}/${assetSubdir}"
         mkdir -p "\${dest}"
         cp "\${bins[@]}" "\${dest}/"
 
         cd "${workDir}"
+
+        # Local-only: route git HTTPS auth through gh (do not touch global gitconfig)
+        git config --local credential.helper ""
+        git config --local --add credential.helper "!gh auth git-credential"
+
         git add -- "${assetSubdir}"/*_${version}_*.bin
 
         if git diff --cached --quiet; then

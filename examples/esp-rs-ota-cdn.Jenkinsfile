@@ -1,9 +1,9 @@
-// Example: manual OTA bin build → CDN asset git push → OTA API register.
+// Example: manual OTA bin build → CDN asset push (gh) → OTA API register.
 // Copy into a firmware repo as Jenkinsfile and adjust ASSET_* / OTA_* values.
 //
 // Agent prerequisites:
 //   rust + esp-rs (espup), ~/export-esp.sh, cargo-espflash
-//   git SSH write access to the asset repository
+//   gh (auth login done, write access to the asset repository)
 //
 // Jenkins credentials:
 //   HOMIN_DEV_TOKEN — Secret text (used by espRsOtaRegister)
@@ -29,7 +29,7 @@ pipeline {
             defaultValue: '',
             description: 'Leave empty to use FWVER from the repository.'
         )
-        booleanParam(name: 'SKIP_CDN', defaultValue: false, description: 'Skip CDN git push')
+        booleanParam(name: 'SKIP_CDN', defaultValue: false, description: 'Skip CDN push (gh)')
         booleanParam(name: 'SKIP_OTA_API', defaultValue: false, description: 'Skip OTA API registration')
     }
 
@@ -62,6 +62,7 @@ pipeline {
                     cargo --version
                     rustc --version
                     command -v cargo-espflash
+                    gh auth status
                     mkdir -p release
                 '''
             }
