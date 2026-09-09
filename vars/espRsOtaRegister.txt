@@ -1,0 +1,13 @@
+Register built OTA binaries with the update API for each HW revision. Uses <code>env.HOMIN_DEV_TOKEN</code> on the agent. Prefers <code>release/upload_update.sh</code> when present.
+
+Required: <code>version</code> (or <code>env.SW_VERSION</code>).
+
+<pre><code>script {
+  espRsOtaRegister(
+    version: env.SW_VERSION,
+    hwRevisions: ['3', '4'],
+    sourceDir: 'release',
+    binPrefix: 'rusty-hangulclock'
+  )
+}
+</code></pre>

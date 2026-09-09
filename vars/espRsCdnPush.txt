@@ -1,0 +1,13 @@
+Clone a CDN asset GitHub repository into the workspace, copy versioned <code>.bin</code> files, commit, and push using the agent's git/SSH auth.
+
+Required: <code>assetRepo</code> (or <code>env.ASSET_REPO</code>) and <code>version</code> (or <code>env.SW_VERSION</code>).
+
+<pre><code>script {
+  espRsCdnPush(
+    assetRepo: 'suapapa/homin-dev_asset',
+    assetSubdir: 'asset/rusty-hangulclock_fw',
+    version: env.SW_VERSION,
+    sourceDir: 'release'
+  )
+}
+</code></pre>

@@ -1,0 +1,9 @@
+Resolve OTA software version and set <code>env.SW_VERSION</code>.
+
+Priority: argument <code>version</code> → build parameter <code>SW_VERSION</code> → existing <code>env.SW_VERSION</code> → <code>FWVER</code> file.
+
+<pre><code>script {
+  espRsResolveFwVer()
+  // or: espRsResolveFwVer(version: '43')
+}
+</code></pre>
