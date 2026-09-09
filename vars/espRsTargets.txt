@@ -1,0 +1,7 @@
+Chip name helpers for esp-rs builds.
+
+<pre><code>script {
+  def triple = espRsTargets.triple('esp32')
+  def chips  = espRsTargets.defaultChips()
+}
+</code></pre>

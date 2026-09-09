@@ -1,0 +1,6 @@
+Resolve the release version from git (`git describe --tags --always` by default) and set `env.RELEASE_TAG`.
+
+<pre><code>script {
+  espRsResolveVersion()
+}
+</code></pre>

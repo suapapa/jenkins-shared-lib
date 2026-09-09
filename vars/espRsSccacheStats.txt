@@ -1,0 +1,6 @@
+Print <code>sccache --show-stats</code> for the current agent.
+
+<pre><code>script {
+  espRsSccacheStats()
+}
+</code></pre>

@@ -1,0 +1,8 @@
+Create or update a GitHub Release on the target repo using the agent's logged-in <code>gh</code> session. Uploads everything under <code>dist/</code>.
+
+Required: <code>targetRepo</code> (or <code>env.TARGET_REPO</code>) and <code>releaseTag</code> (or <code>env.RELEASE_TAG</code>).
+
+<pre><code>script {
+  espRsPublish(targetRepo: 'your-org/target-binary-repo')
+}
+</code></pre>

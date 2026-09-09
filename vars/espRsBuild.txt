@@ -1,0 +1,8 @@
+Build one esp-rs chip target, optionally produce a flash `.bin`, archive ELF(+bin) as tar.gz, and write a SHA256 checksum under `dist/`.
+
+Required: <code>chip</code>, <code>binName</code>. Also needs <code>releaseTag</code> or <code>env.RELEASE_TAG</code>.
+
+<pre><code>script {
+  espRsBuild(chip: 'esp32s3', binName: 'my-firmware')
+}
+</code></pre>

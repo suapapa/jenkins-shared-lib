@@ -1,0 +1,6 @@
+Verify cargo / rustc / sccache / gh on a preconfigured agent, optionally zero sccache stats, and create the dist directory.
+
+<pre><code>script {
+  espRsPreflight()
+}
+</code></pre>
