@@ -50,7 +50,7 @@ Docker/`cross`나 Jenkins Credential으로 `GH_TOKEN`을 주입하는 방식은 
 | `espRsPreflight` | cargo / rustc / sccache / gh 확인, sccache stats 초기화, `dist/` 생성 |
 | `espRsBuild` | 칩셋별 release 빌드 → ELF(+bin) → `dist/*.tar.gz` + `.sha256` |
 | `espRsPublish` | 에이전트 `gh` 세션으로 타깃 저장소 GitHub Release create/upload |
-| `espRsCdnPush` | CDN용 asset 저장소를 `gh repo clone` → `.bin` 복사 및 과거 아티팩트 정리(최신 6개 유지) → commit/push |
+| `espRsCdnPush` | CDN용 asset 저장소를 `gh repo clone` → `.bin` 복사 → commit/push (선택: `keepCount` 지정 시 `assetSubdir` 아티팩트 개수 유지) |
 | `espRsOtaRegister` | HW revision별 OTA API에 바이너리 메타데이터 등록 (Credential `HOMIN_DEV_TOKEN`) |
 | `espRsSccacheStats` | `sccache --show-stats` |
 | `espRsTargets` | 칩셋 ↔ Rust target triple 헬퍼 |
