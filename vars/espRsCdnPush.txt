@@ -1,13 +1,15 @@
-Clone a CDN asset GitHub repository into the workspace with <code>gh repo clone</code>, copy versioned <code>.bin</code> files, commit, and push using the agent's pre-authenticated <code>gh</code> CLI.
+Clone a CDN asset GitHub repository into the workspace with <code>gh repo clone</code>, copy versioned <code>.bin</code> files, retain only the latest artifacts (default: 6 per target prefix), commit, and push using the agent's pre-authenticated <code>gh</code> CLI.
 
 Required: <code>assetRepo</code> (or <code>env.ASSET_REPO</code>) and <code>version</code> (or <code>env.SW_VERSION</code>).
+Optional: <code>keepCount</code> (default: 6, number of latest artifacts to retain per target prefix).
 
 <pre><code>script {
   espRsCdnPush(
     assetRepo: 'suapapa/homin-dev_asset',
     assetSubdir: 'asset/rusty-hangulclock_fw',
     version: env.SW_VERSION,
-    sourceDir: 'release'
+    sourceDir: 'release',
+    keepCount: 6
   )
 }
 </code></pre>
